@@ -1,25 +1,25 @@
 # first-Ladydebug-game
-Ladydebug game inspired by Mrs. PacMan!
-
 Ideas:
-1. "PacMan" will be a pixel art version of Ladydebug Logo
-2. "Maze" will be a pixel art version of a Motherboard in a computer
-3. "Big Pacdots" will be a pixel art version of "bugs" (like bugs in code represented as little bugs(like ants, aphids, flys, ect.)
-4. "Ghosts" will be a pixel art version of bolts of electricity (from the motherboard)
-5. "Small Pacdots" will be pixel art version of food for Ladydebug (I'm thinking small cups of coffee)
+
+Character will be a pixel art version of Ladydebug Logo
+Backround will be a pixel art version of green 0s and 1s on a black backround with a border made of computer parts (microchip looking things)
+Enemys will be a pixel art version of purple "bugs" (like bugs in code represented as little bugs(like ants, aphids, flys, ect.)
+In higher levels there will be obsticlesthat are a pixel art version of bolts of electricity (from the motherboard) 
+Fuel will be pixel art version of Coffee for Ladydebug (don't drink too much or you'll go too fast)
 
 Requirments for MVP: (minimum viable product)
-1. Ladydebug is controlled by Player, and moves up, down, left, right
-2. Ladydebug eats bugs and coffe
-3. Bolts move like Ghosts in Pacman and on collision with Ladydebug game over with Player Lose
-4. When Ladydebug eats all bugs Player Wins
 
+Ladydebug is controlled by Player, and moves up, down, left, right
+Ladydebug eats bugs and coffe
+A collision with Bolts and Ladydebug will be game over 
+When Ladydebug eats all bugs Player Wins
 Logic for gameplay
-1. Ladydebug will only move in 4 directions. no diagonal
-2. Ladydebug will move using either ASWD or Arrow Keys
-3. Ladydebug will not go through walls
-4. On Collision with Bugs and Food will make them disapear
-5. Bolts will will only move in 4 directions. no diagonal
-6. Bolts will not go through walls
-7. On Collision with Bolts will Game Over
-8. On Collision with 4 Bugs will Player Wins!
+
+Ladydebug will only move in 4 directions. no diagonal
+Ladydebug will move using either ASWD or Arrow Keys
+Ladydebug will not go through walls
+On Collision with Bugs and Food will make them disapear
+Bolts will will only move in 4 directions. no diagonal
+Bolts will not go through walls
+On Collision with Bolts will Game Over
+On Collision with 4 Bugs will Player Wins!
