@@ -2,11 +2,12 @@
 
 public class BackgroundScroller : MonoBehaviour
 {
-    public BoxCollider2D collider;
-    public Rigidbody2D rb;
+    private BoxCollider2D collider;
+    private Rigidbody2D rb;
 
     private float height;
     private float scrollSpeed = -2f;
+
 
     void Start()
     {
@@ -20,7 +21,6 @@ public class BackgroundScroller : MonoBehaviour
         ResetObstacle();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (transform.position.y < -height)

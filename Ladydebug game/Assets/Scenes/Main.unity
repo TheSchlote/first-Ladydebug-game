@@ -220,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1e78b3a7ea74e448675344373accc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
 --- !u!61 &60999046
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -300,8 +299,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02672d54147f61488d6308063b51a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!50 &232470105
 Rigidbody2D:
   serializedVersion: 4
@@ -697,8 +694,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02672d54147f61488d6308063b51a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!50 &573204299
 Rigidbody2D:
   serializedVersion: 4
