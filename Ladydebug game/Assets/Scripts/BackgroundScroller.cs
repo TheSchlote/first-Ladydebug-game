@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class BackgroundScroller : MonoBehaviour
 {
@@ -9,6 +12,8 @@ public class BackgroundScroller : MonoBehaviour
 
     private GameObject coffee;
     private GameObject microchip;
+
+    public Dictionary<GameObject, GameObject> obstacles = new Dictionary<GameObject, GameObject>();
 
     private BoxCollider2D collider;
     private Rigidbody2D rb;
@@ -26,52 +31,56 @@ public class BackgroundScroller : MonoBehaviour
 
         rb.velocity = new Vector2(0, scrollSpeed);
 
-        coffee = Instantiate(coffeePrefab, new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)), Quaternion.identity);
-        coffee.transform.parent = transform.GetChild(0);
-        Destroy(coffee);
-
-        microchip = Instantiate(microchipPrefab, new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)), Quaternion.identity);
-        microchip.transform.parent = transform.GetChild(0);
-        Destroy(microchip);
-
-        ResetObstacle(0);
+        AssignObstaclePrefabs();
     }
 
+    private void AssignObstaclePrefabs()
+    {
+        obstacles.Add(coffeePrefab, coffee);
+        obstacles.Add(microchipPrefab, microchip);
+    }
     void Update()
     {
-        if (transform.GetChild(0).position.y < -height)
+        if (transform.GetChild(0).position.y < -height )
         {
-            Vector2 resetPosition = new Vector2(0, height * 2f);
-            transform.GetChild(0).position = (Vector2)transform.GetChild(0).position + resetPosition;
-            ResetObstacle(0);
+            MovePictures(0);
         }
-
-        if (transform.GetChild(1).position.y < -height)
+        if(transform.GetChild(1).position.y < -height)
         {
-            Vector2 resetPosition = new Vector2(0, height * 2f);
-            transform.GetChild(1).position = (Vector2)transform.GetChild(1).position + resetPosition;
-            ResetObstacle(1);
+            MovePictures(1);
         }
     }
-    
+
+    private void MovePictures(int id)
+    {
+        Vector2 resetPosition = new Vector2(0, height * 2f);
+        transform.GetChild(id).position = (Vector2)transform.GetChild(id).position + resetPosition;
+        if (transform.GetChild(id).childCount > 0)
+        {
+            foreach (Transform child in transform.GetChild(id))
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        ResetObstacle(id);
+    }
+
     public void ResetObstacle(int child)
     {
-        if (!coffee)
+        List<GameObject> keys = new List<GameObject>(obstacles.Keys);
+        foreach (GameObject prefab in keys)
         {
-            coffee = Instantiate(coffeePrefab, new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)), Quaternion.identity);
-            coffee.transform.parent = transform.GetChild(child);
+            GameObject thingToSpawn;
+            if (obstacles.TryGetValue(prefab, out thingToSpawn))//TODO: see if this is actually what I want. This works but i dont know why??
+            {
+                obstacles[prefab] = Instantiate(prefab, new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1)), Quaternion.identity);
+                obstacles[prefab].transform.parent = transform.GetChild(child);
+                obstacles[prefab].transform.localPosition = new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1));
+            }
         }
-        coffee.transform.localPosition = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
-
-        if (!microchip)
-        {
-            microchip = Instantiate(microchipPrefab, new Vector3(Random.Range(-1, 1), Random.Range(-1, 1)), Quaternion.identity);
-            microchip.transform.parent = transform.GetChild(child);
-        }
-        microchip.transform.localPosition = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
     }
 
-    public void DestroyCoffee()
+    public void DestroyCoffee()//TODO: Rework this!
     {
         Destroy(coffee);
     }
