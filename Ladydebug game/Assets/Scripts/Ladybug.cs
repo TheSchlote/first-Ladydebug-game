@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Ladybug : MonoBehaviour
 {
     public BackgroundScroller background;
+    public GameManager gameManager;
 
     [SerializeField] private Slider coffeeMeter;
     private Rigidbody2D rb;
-    private float moveSpeed = 5;
+    private float moveSpeed = 1;
     private void Start()
     {
-        coffeeMeter.maxValue = 50;
+        coffeeMeter.maxValue = 10;
         rb = GetComponent<Rigidbody2D>();
     }
     private void Update()
@@ -26,16 +24,16 @@ public class Ladybug : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Coffee"))
         {
-            background.DestroyCoffee();
+            Destroy(collision.gameObject);
             moveSpeed += 1;
-            coffeeMeter.value = moveSpeed;
+            coffeeMeter.value = moveSpeed -1;
             Debug.Log("Drank Coffee! Go Faster!");
         }
 
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             Destroy(gameObject);
-            Debug.Log("You Died!");
+            gameManager.YouDiedDisplay();
         }
     }
 }

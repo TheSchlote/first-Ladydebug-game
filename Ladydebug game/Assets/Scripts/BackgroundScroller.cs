@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundScroller : MonoBehaviour
@@ -41,20 +39,31 @@ public class BackgroundScroller : MonoBehaviour
     }
     void Update()
     {
-        if (transform.GetChild(0).position.y < -height )
+        if (PictureIsReadyToBeReset(0))
         {
-            MovePictures(0);
+            ResetPicture(0);
         }
-        if(transform.GetChild(1).position.y < -height)
+        if (PictureIsReadyToBeReset(1))
         {
-            MovePictures(1);
+            ResetPicture(1);
         }
     }
 
-    private void MovePictures(int id)
+    private bool PictureIsReadyToBeReset(int pictureID)
+    {
+        return transform.GetChild(pictureID).position.y < -height;
+    }
+
+    private void ResetPicture(int id)
     {
         Vector2 resetPosition = new Vector2(0, height * 2f);
         transform.GetChild(id).position = (Vector2)transform.GetChild(id).position + resetPosition;
+        DestroyAllChildren(id);
+        ResetObstacle(id);
+    }
+
+    private void DestroyAllChildren(int id)
+    {
         if (transform.GetChild(id).childCount > 0)
         {
             foreach (Transform child in transform.GetChild(id))
@@ -62,7 +71,6 @@ public class BackgroundScroller : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
-        ResetObstacle(id);
     }
 
     public void ResetObstacle(int child)
@@ -71,17 +79,12 @@ public class BackgroundScroller : MonoBehaviour
         foreach (GameObject prefab in keys)
         {
             GameObject thingToSpawn;
-            if (obstacles.TryGetValue(prefab, out thingToSpawn))//TODO: see if this is actually what I want. This works but i dont know why??
+            if (obstacles.TryGetValue(prefab, out thingToSpawn))
             {
                 obstacles[prefab] = Instantiate(prefab, new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1)), Quaternion.identity);
                 obstacles[prefab].transform.parent = transform.GetChild(child);
                 obstacles[prefab].transform.localPosition = new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1));
             }
         }
-    }
-
-    public void DestroyCoffee()//TODO: Rework this!
-    {
-        Destroy(coffee);
     }
 }
