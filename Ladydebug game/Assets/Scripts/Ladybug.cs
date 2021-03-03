@@ -27,7 +27,6 @@ public class Ladybug : MonoBehaviour
             Destroy(collision.gameObject);
             moveSpeed += 1;
             coffeeMeter.value = moveSpeed -1;
-            Debug.Log("Drank Coffee! Go Faster!");
         }
 
         if (collision.gameObject.CompareTag("Obstacle"))

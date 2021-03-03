@@ -7,9 +7,12 @@ public class BackgroundScroller : MonoBehaviour
     private GameObject coffeePrefab;
     [SerializeField]
     private GameObject microchipPrefab;
+    [SerializeField]
+    private GameObject lightningBoltPrefab;
 
     private GameObject coffee;
     private GameObject microchip;
+    private GameObject lightningBolt;
 
     public Dictionary<GameObject, GameObject> obstacles = new Dictionary<GameObject, GameObject>();
 
@@ -17,9 +20,9 @@ public class BackgroundScroller : MonoBehaviour
     private Rigidbody2D rb;
 
     private float height;
-    private float scrollSpeed = -2f;
+    private float scrollSpeed = -2f; //TDOD: use this to eventually make the game scroll faster!
 
-    void Start()
+    private void Start()
     {
         collider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
@@ -36,8 +39,9 @@ public class BackgroundScroller : MonoBehaviour
     {
         obstacles.Add(coffeePrefab, coffee);
         obstacles.Add(microchipPrefab, microchip);
+        obstacles.Add(lightningBoltPrefab, lightningBolt);
     }
-    void Update()
+    private void Update()
     {
         if (PictureIsReadyToBeReset(0))
         {
