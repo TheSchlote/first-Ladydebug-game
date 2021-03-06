@@ -11,7 +11,7 @@ public class Ladybug : MonoBehaviour
     private float moveSpeed = 1;
     private void Start()
     {
-        coffeeMeter.maxValue = 10;
+        coffeeMeter.maxValue = 5;
         rb = GetComponent<Rigidbody2D>();
     }
     private void Update()
@@ -24,9 +24,15 @@ public class Ladybug : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Coffee"))
         {
+            gameManager.PlayCoffeeSound();
             Destroy(collision.gameObject);
             moveSpeed += 1;
-            coffeeMeter.value = moveSpeed -1;
+            coffeeMeter.value += 1;
+            if(coffeeMeter.value == coffeeMeter.maxValue)
+            {
+                coffeeMeter.value = 0;
+                background.SpeedUp();
+            }
         }
 
         if (collision.gameObject.CompareTag("Obstacle"))

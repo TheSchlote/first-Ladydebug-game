@@ -20,7 +20,7 @@ public class BackgroundScroller : MonoBehaviour
     private Rigidbody2D rb;
 
     private float height;
-    private float scrollSpeed = -2f; //TDOD: use this to eventually make the game scroll faster!
+    public float scrollSpeed = -2f;
 
     private void Start()
     {
@@ -90,5 +90,11 @@ public class BackgroundScroller : MonoBehaviour
                 obstacles[prefab].transform.localPosition = new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1));
             }
         }
+    }
+
+    public void SpeedUp()
+    {
+        scrollSpeed -= 1;
+        rb.velocity = new Vector2(0, scrollSpeed);
     }
 }

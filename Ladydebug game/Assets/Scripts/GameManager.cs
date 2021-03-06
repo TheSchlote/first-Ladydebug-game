@@ -7,13 +7,18 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject YouDiedPanel;
     [SerializeField] private GameObject TutorialPanel;
+    [SerializeField] private AudioSource highFlyingMusic;
+    [SerializeField] private AudioSource DeathSound;
+    [SerializeField] private AudioSource CoffeeSound;
 
     private void Start()
     {
+        highFlyingMusic.Play();
         StartCoroutine(Tutorial(5));
     }
     public void YouDiedDisplay()
     {
+        DeathSound.Play();
         YouDiedPanel.SetActive(true);
     }
 
@@ -30,5 +35,10 @@ public class GameManager : MonoBehaviour
     private void PlayAgain()
     {
         SceneManager.LoadScene("Main");
+    }
+
+    public void PlayCoffeeSound()
+    {
+        CoffeeSound.Play();
     }
 }

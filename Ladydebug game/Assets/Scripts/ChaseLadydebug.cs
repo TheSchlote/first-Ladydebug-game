@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChaseLadydebug : MonoBehaviour
 {
     private Transform target;
-    [SerializeField] private float speed = 1f;
+    public float chaseSpeed = 1f;
 
     void Start()
     {
@@ -16,6 +16,6 @@ public class ChaseLadydebug : MonoBehaviour
     void Update()
     {
         if(target)
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, target.position, chaseSpeed * Time.deltaTime);
     }
 }
