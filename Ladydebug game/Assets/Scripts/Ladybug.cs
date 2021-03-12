@@ -7,8 +7,11 @@ public class Ladybug : MonoBehaviour
     public GameManager gameManager;
 
     [SerializeField] private Slider coffeeMeter;
+    [SerializeField] private Text bugCountTextbox;
     private Rigidbody2D rb;
     private float moveSpeed = 1;
+    private int bugCount = 0;
+
     private void Start()
     {
         coffeeMeter.maxValue = 5;
@@ -39,6 +42,14 @@ public class Ladybug : MonoBehaviour
         {
             Destroy(gameObject);
             gameManager.YouDiedDisplay();
+        }
+
+        if (collision.gameObject.CompareTag("Bug"))
+        {
+            Destroy(collision.gameObject);
+            gameManager.PlayBugSound();
+            bugCount += 1;
+            bugCountTextbox.text = "Bugs: " + bugCount.ToString();
         }
     }
 }

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource highFlyingMusic;
     [SerializeField] private AudioSource DeathSound;
     [SerializeField] private AudioSource CoffeeSound;
+    [SerializeField] private AudioSource BugSound;
 
     private void Start()
     {
@@ -40,5 +41,9 @@ public class GameManager : MonoBehaviour
     public void PlayCoffeeSound()
     {
         CoffeeSound.Play();
+    }
+    public void PlayBugSound()
+    {
+        BugSound.Play();
     }
 }

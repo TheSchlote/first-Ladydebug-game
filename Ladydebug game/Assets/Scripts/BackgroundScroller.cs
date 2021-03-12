@@ -9,10 +9,13 @@ public class BackgroundScroller : MonoBehaviour
     private GameObject microchipPrefab;
     [SerializeField]
     private GameObject lightningBoltPrefab;
+    [SerializeField]
+    private GameObject bugPrefab;
 
     private GameObject coffee;
     private GameObject microchip;
     private GameObject lightningBolt;
+    private GameObject bug;
 
     public Dictionary<GameObject, GameObject> obstacles = new Dictionary<GameObject, GameObject>();
 
@@ -40,6 +43,8 @@ public class BackgroundScroller : MonoBehaviour
         obstacles.Add(coffeePrefab, coffee);
         obstacles.Add(microchipPrefab, microchip);
         obstacles.Add(lightningBoltPrefab, lightningBolt);
+        obstacles.Add(bugPrefab, bug);
+
     }
     private void Update()
     {
@@ -88,6 +93,7 @@ public class BackgroundScroller : MonoBehaviour
                 obstacles[prefab] = Instantiate(prefab, new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1)), Quaternion.identity);
                 obstacles[prefab].transform.parent = transform.GetChild(child);
                 obstacles[prefab].transform.localPosition = new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1));
+                //Debug.Log(obstacles[prefab].transform.localPosition);
             }
         }
     }
