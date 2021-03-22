@@ -85,15 +85,28 @@ public class BackgroundScroller : MonoBehaviour
     public void ResetObstacle(int child)
     {
         List<GameObject> keys = new List<GameObject>(obstacles.Keys);
+        List<GameObject> alreadySpawnedPrefabs = new List<GameObject>();
         foreach (GameObject prefab in keys)
         {
             GameObject thingToSpawn;
             if (obstacles.TryGetValue(prefab, out thingToSpawn))
             {
-                obstacles[prefab] = Instantiate(prefab, new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1)), Quaternion.identity);
+                obstacles[prefab] = Instantiate(prefab, new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)), Quaternion.identity);
                 obstacles[prefab].transform.parent = transform.GetChild(child);
-                obstacles[prefab].transform.localPosition = new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1));
-                //Debug.Log(obstacles[prefab].transform.localPosition);
+                obstacles[prefab].transform.localPosition = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+
+                alreadySpawnedPrefabs.Add(obstacles[prefab]);
+                if (alreadySpawnedPrefabs.Count > 1)
+                {
+                    foreach (GameObject alreadySpawnedPrefab in alreadySpawnedPrefabs)
+                    {
+                        //there are different types of colliders
+                        while (obstacles[prefab].GetComponent<PolygonCollider2D>().IsTouching(alreadySpawnedPrefab.GetComponent<PolygonCollider2D>()))
+                        {
+                            obstacles[prefab].transform.localPosition = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+                        }
+                    }
+                }
             }
         }
     }
