@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         TutorialPanel.SetActive(false);
     }
-    private void PlayAgain()
+    public void PlayAgain()
     {
         SceneManager.LoadScene("Main");
     }

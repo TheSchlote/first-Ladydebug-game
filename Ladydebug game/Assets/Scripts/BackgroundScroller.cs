@@ -95,12 +95,12 @@ public class BackgroundScroller : MonoBehaviour
                 obstacles[prefab].transform.parent = transform.GetChild(child);
                 obstacles[prefab].transform.localPosition = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
 
+                //TODO: fix this, cause it dont work
                 alreadySpawnedPrefabs.Add(obstacles[prefab]);
                 if (alreadySpawnedPrefabs.Count > 1)
                 {
                     foreach (GameObject alreadySpawnedPrefab in alreadySpawnedPrefabs)
                     {
-                        //there are different types of colliders
                         while (obstacles[prefab].GetComponent<PolygonCollider2D>().IsTouching(alreadySpawnedPrefab.GetComponent<PolygonCollider2D>()))
                         {
                             obstacles[prefab].transform.localPosition = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));

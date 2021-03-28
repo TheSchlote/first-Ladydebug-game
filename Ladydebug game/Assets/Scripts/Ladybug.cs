@@ -46,31 +46,55 @@ public class Ladybug : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Coffee"))
+        switch (collision.tag) 
         {
-            gameManager.PlayCoffeeSound();
-            Destroy(collision.gameObject);
+            case "Coffee":
+                Coffee(collision);
+                break;
+            case "Obstacle":
+                Obstacle();
+                break;
+            case "Bug":
+                Bug(collision);
+                break;
+            default:
+                Debug.Log("Unkown collision");
+                break;
+        }
+    }
+
+    private void Bug(Collider2D collision)
+    {
+        Destroy(collision.gameObject);
+        gameManager.PlayBugSound();
+        bugCount += 1;
+        bugCountTextbox.text = "Bugs: " + bugCount.ToString();
+    }
+
+    private void Obstacle()
+    {
+        Destroy(gameObject);
+
+        Button LeftButton = GameObject.Find("LeftButton").GetComponent<Button>();
+        Button RightButton = GameObject.Find("RightButton").GetComponent<Button>();
+
+        LeftButton.gameObject.SetActive(false);
+        RightButton.gameObject.SetActive(false);
+
+        gameManager.YouDiedDisplay();
+    }
+
+    private void Coffee(Collider2D collision)
+    {
+        gameManager.PlayCoffeeSound();
+        Destroy(collision.gameObject);
+        if (moveSpeed < 10)
             moveSpeed += 1;
-            coffeeMeter.value += 1;
-            if(coffeeMeter.value == coffeeMeter.maxValue)
-            {
-                coffeeMeter.value = 0;
-                background.SpeedUp();
-            }
-        }
-
-        if (collision.gameObject.CompareTag("Obstacle"))
+        coffeeMeter.value += 1;
+        if (coffeeMeter.value == coffeeMeter.maxValue)
         {
-            Destroy(gameObject);
-            gameManager.YouDiedDisplay();
-        }
-
-        if (collision.gameObject.CompareTag("Bug"))
-        {
-            Destroy(collision.gameObject);
-            gameManager.PlayBugSound();
-            bugCount += 1;
-            bugCountTextbox.text = "Bugs: " + bugCount.ToString();
+            coffeeMeter.value = 0;
+            background.SpeedUp();
         }
     }
 }
